@@ -1,6 +1,6 @@
 import { Request, Response } from "express";
 import { Conversation } from "../models/Conversation-model";
-import { getReceiverSocketId, io } from "../socket/Socket";
+import { getReceiverSocketId, io } from "../socket/socket";
 import { Message } from "../models/Message-model";
 
 interface AuthRequest extends Request {

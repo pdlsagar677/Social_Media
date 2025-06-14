@@ -2,8 +2,8 @@ import { Request, Response } from 'express';
 import bcrypt from 'bcryptjs';
 import { Types } from 'mongoose';
 import jwt from 'jsonwebtoken';
-import getDataUri from '../utils/Datauri';
-import cloudinary from '../utils/Cloudinary';
+import getDataUri from '../utils/datauri';
+import cloudinary from '../utils/cloudinary';
 import { IUser, User } from '../models/User-model'; // your User model file path
 import { IPost, Post } from '../models/Post-model'; // your Post model file path
 

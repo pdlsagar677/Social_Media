@@ -5,11 +5,11 @@ import dotenv from "dotenv";
 import path from "path";
 import { fileURLToPath } from "url";
 
-import connectDB from "./utils/Db";
-import userRoute from "./routes/User-route";
-import postRoute from "./routes/Post-route";
-import messageRoute from "./routes/Message-route";
-import { app, server } from "./socket/Socket";
+import connectDB from "./utils/db";
+import userRoute from "./routes/user-route";
+import postRoute from "./routes/post-route";
+import messageRoute from "./routes/message-route";
+import { app, server } from "./socket/socket";
 
 // Load environment variables
 dotenv.config();

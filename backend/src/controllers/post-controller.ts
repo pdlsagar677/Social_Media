@@ -1,10 +1,10 @@
 import sharp from "sharp";
 import  { Types } from "mongoose";
-import cloudinary from "../utils/Cloudinary";
+import cloudinary from "../utils/cloudinary";
 import { Post } from "../models/Post-model";
 import { User } from "../models/User-model";
 import { Comment } from "../models/Comment-model";
-import { getReceiverSocketId, io } from "../socket/Socket";
+import { getReceiverSocketId, io } from "../socket/socket";
 import { Request, Response } from "express";
 
 interface CustomRequest extends Request {
