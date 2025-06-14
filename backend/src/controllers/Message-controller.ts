@@ -21,18 +21,20 @@ export const sendMessage = async (req: AuthRequest, res: Response): Promise<Resp
     if (!conversation) {
       conversation = await Conversation.create({
         participants: [senderId, receiverId],
+        messages: [],
       });
     }
 
-    const newMessage = await Message.create({
+    const newMessage = new Message({
       senderId,
       receiverId,
       message,
     });
 
-    if (newMessage) conversation.messages.push(newMessage._id);
+    await newMessage.save();
 
-    await Promise.all([conversation.save(), newMessage.save()]);
+conversation.messages.push(newMessage.id);
+    await conversation.save();
 
     // Socket.io real-time notification
     const receiverSocketId = getReceiverSocketId(receiverId);
@@ -45,9 +47,11 @@ export const sendMessage = async (req: AuthRequest, res: Response): Promise<Resp
       newMessage,
     });
   } catch (error) {
-    console.log(error);
+    console.error(error);
+    return res.status(500).json({ success: false, message: "Internal Server Error" });
   }
 };
+
 
 // For getting messages between users
 export const getMessage = async (req: AuthRequest, res: Response): Promise<Response | void> => {

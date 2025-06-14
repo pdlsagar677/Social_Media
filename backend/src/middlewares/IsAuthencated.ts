@@ -1,11 +1,9 @@
 import { Request, Response, NextFunction } from 'express';
 import jwt from 'jsonwebtoken';
 
-// Extend the Request interface to include `cookies`
+// Extend Request interface to include cookies and id
 interface AuthRequest extends Request {
-  cookies: {
-    token?: string;
-  };
+  cookies: { token?: string };  // cookies should be non-optional if you use cookie-parser
   id?: string;
 }
 
@@ -19,13 +17,13 @@ const isAuthenticated = async (req: AuthRequest, res: Response, next: NextFuncti
       });
     }
 
-    const decode = jwt.verify(token, process.env.SECRET_KEY as string) as { userId: string };
+    const decoded = jwt.verify(token, process.env.SECRET_KEY as string) as { userId: string };
 
-    req.id = decode.userId;
+    req.id = decoded.userId;
     next();
   } catch (error) {
     console.log(error);
-    return res.status(500).json({
+    return res.status(401).json({
       message: 'Authentication failed',
       success: false,
     });
